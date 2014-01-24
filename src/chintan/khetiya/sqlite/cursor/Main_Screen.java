@@ -20,9 +20,9 @@ import android.widget.Toast;
 
 public class Main_Screen extends Activity {
     Button add_btn;
-    ListView Contact_listview;
-    ArrayList<Contact> contact_data = new ArrayList<Contact>();
-    Contact_Adapter cAdapter;
+    ListView Trajet_listview;
+    ArrayList<Trajet> trajet_data = new ArrayList<Trajet>();
+    Trajet_Adapter cAdapter;
     DatabaseHandler db;
     String Toast_msg;
 
@@ -31,8 +31,8 @@ public class Main_Screen extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 	try {
-	    Contact_listview = (ListView) findViewById(R.id.list);
-	    Contact_listview.setItemsCanFocus(false);
+		Trajet_listview = (ListView) findViewById(R.id.list);
+		Trajet_listview.setItemsCanFocus(false);
 	    add_btn = (Button) findViewById(R.id.add_btn);
 
 	    Set_Referash_Data();
@@ -65,9 +65,9 @@ public class Main_Screen extends Activity {
     }
 
     public void Set_Referash_Data() {
-	contact_data.clear();
+	trajet_data.clear();
 	db = new DatabaseHandler(this);
-	ArrayList<Contact> contact_array_from_db = db.Get_Contacts();
+	ArrayList<Trajet> contact_array_from_db = db.Get_Trajets();
 
 	for (int i = 0; i < contact_array_from_db.size(); i++) {
 
@@ -75,18 +75,18 @@ public class Main_Screen extends Activity {
 	    String name = contact_array_from_db.get(i).getName();
 	    String mobile = contact_array_from_db.get(i).getPhoneNumber();
 	    String email = contact_array_from_db.get(i).getEmail();
-	    Contact cnt = new Contact();
+	    Trajet cnt = new Trajet();
 	    cnt.setID(tidno);
 	    cnt.setName(name);
 	    cnt.setEmail(email);
 	    cnt.setPhoneNumber(mobile);
 
-	    contact_data.add(cnt);
+	    trajet_data.add(cnt);
 	}
 	db.close();
-	cAdapter = new Contact_Adapter(Main_Screen.this, R.layout.listview_row,
-		contact_data);
-	Contact_listview.setAdapter(cAdapter);
+	cAdapter = new Trajet_Adapter(Main_Screen.this, R.layout.listview_row,
+		trajet_data);
+	Trajet_listview.setAdapter(cAdapter);
 	cAdapter.notifyDataSetChanged();
     }
 
@@ -102,14 +102,14 @@ public class Main_Screen extends Activity {
 
     }
 
-    public class Contact_Adapter extends ArrayAdapter<Contact> {
+    public class Trajet_Adapter extends ArrayAdapter<Trajet> {
 	Activity activity;
 	int layoutResourceId;
-	Contact user;
-	ArrayList<Contact> data = new ArrayList<Contact>();
+	Trajet user;
+	ArrayList<Trajet> data = new ArrayList<Trajet>();
 
-	public Contact_Adapter(Activity act, int layoutResourceId,
-		ArrayList<Contact> data) {
+	public Trajet_Adapter(Activity act, int layoutResourceId,
+		ArrayList<Trajet> data) {
 	    super(act, layoutResourceId, data);
 	    this.layoutResourceId = layoutResourceId;
 	    this.activity = act;
@@ -179,7 +179,7 @@ public class Main_Screen extends Activity {
 				    // MyDataObject.remove(positionToRemove);
 				    DatabaseHandler dBHandler = new DatabaseHandler(
 					    activity.getApplicationContext());
-				    dBHandler.Delete_Contact(user_id);
+				    dBHandler.Delete_Trajet(user_id);
 				    Main_Screen.this.onResume();
 
 				}

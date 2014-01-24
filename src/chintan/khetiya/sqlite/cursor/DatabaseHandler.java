@@ -26,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name";
     private static final String KEY_PH_NO = "phone_number";
     private static final String KEY_EMAIL = "email";
-    private final ArrayList<Contact> contact_list = new ArrayList<Contact>();
+    private final ArrayList<Trajet> trajet_list = new ArrayList<Trajet>();
 
     public DatabaseHandler(Context context) {
 	super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -56,7 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     // Adding new contact
-    public void Add_Contact(Contact contact) {
+    public void Add_Trajet(Trajet contact) {
 	SQLiteDatabase db = this.getWritableDatabase();
 	ContentValues values = new ContentValues();
 	values.put(KEY_NAME, contact.getName()); // Contact Name
@@ -68,7 +68,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting single contact
-    Contact Get_Contact(int id) {
+    Trajet Get_Trajet(int id) {
 	SQLiteDatabase db = this.getReadableDatabase();
 
 	Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
@@ -77,7 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	if (cursor != null)
 	    cursor.moveToFirst();
 
-	Contact contact = new Contact(Integer.parseInt(cursor.getString(0)),
+	Trajet contact = new Trajet(Integer.parseInt(cursor.getString(0)),
 		cursor.getString(1), cursor.getString(2), cursor.getString(3));
 	// return contact
 	cursor.close();
@@ -87,9 +87,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting All Contacts
-    public ArrayList<Contact> Get_Contacts() {
+    public ArrayList<Trajet> Get_Trajets() {
 	try {
-	    contact_list.clear();
+	    trajet_list.clear();
 
 	    // Select All Query
 	    String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
@@ -100,30 +100,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	    // looping through all rows and adding to list
 	    if (cursor.moveToFirst()) {
 		do {
-		    Contact contact = new Contact();
+			Trajet contact = new Trajet();
 		    contact.setID(Integer.parseInt(cursor.getString(0)));
 		    contact.setName(cursor.getString(1));
 		    contact.setPhoneNumber(cursor.getString(2));
 		    contact.setEmail(cursor.getString(3));
 		    // Adding contact to list
-		    contact_list.add(contact);
+		    trajet_list.add(contact);
 		} while (cursor.moveToNext());
 	    }
 
 	    // return contact list
 	    cursor.close();
 	    db.close();
-	    return contact_list;
+	    return trajet_list;
 	} catch (Exception e) {
 	    // TODO: handle exception
 	    Log.e("all_contact", "" + e);
 	}
 
-	return contact_list;
+	return trajet_list;
     }
 
     // Updating single contact
-    public int Update_Contact(Contact contact) {
+    public int Update_Contact(Trajet contact) {
 	SQLiteDatabase db = this.getWritableDatabase();
 
 	ContentValues values = new ContentValues();
@@ -137,7 +137,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting single contact
-    public void Delete_Contact(int id) {
+    public void Delete_Trajet(int id) {
 	SQLiteDatabase db = this.getWritableDatabase();
 	db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
 		new String[] { String.valueOf(id) });
@@ -145,7 +145,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting contacts Count
-    public int Get_Total_Contacts() {
+    public int Get_Total_Trajets() {
 	String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;
 	SQLiteDatabase db = this.getReadableDatabase();
 	Cursor cursor = db.rawQuery(countQuery, null);

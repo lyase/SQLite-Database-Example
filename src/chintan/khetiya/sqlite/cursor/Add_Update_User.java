@@ -42,7 +42,7 @@ public class Add_Update_User extends Activity {
 	    add_view.setVisibility(View.GONE);
 	    USER_ID = Integer.parseInt(getIntent().getStringExtra("USER_ID"));
 
-	    Contact c = dbHandler.Get_Contact(USER_ID);
+	    Trajet c = dbHandler.Get_Trajet(USER_ID);
 
 	    add_name.setText(c.getName());
 	    add_mobile.setText(c.getPhoneNumber());
@@ -133,7 +133,7 @@ public class Add_Update_User extends Activity {
 			&& valid_mob_number.length() != 0
 			&& valid_email.length() != 0) {
 
-		    dbHandler.Add_Contact(new Contact(valid_name,
+		    dbHandler.Add_Trajet(new Trajet(valid_name,
 			    valid_mob_number, valid_email));
 		    Toast_msg = "Data inserted successfully";
 		    Show_Toast(Toast_msg);
@@ -160,7 +160,7 @@ public class Add_Update_User extends Activity {
 			&& valid_mob_number.length() != 0
 			&& valid_email.length() != 0) {
 
-		    dbHandler.Update_Contact(new Contact(USER_ID, valid_name,
+		    dbHandler.Update_Contact(new Trajet(USER_ID, valid_name,
 			    valid_mob_number, valid_email));
 		    dbHandler.close();
 		    Toast_msg = "Data Update successfully";

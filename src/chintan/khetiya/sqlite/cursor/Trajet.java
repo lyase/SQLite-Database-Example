@@ -1,6 +1,6 @@
 package chintan.khetiya.sqlite.cursor;
 
-public class Contact {
+public class Trajet {
 
     // private variables
     public int _id;
@@ -8,11 +8,11 @@ public class Contact {
     public String _phone_number;
     public String _email;
 
-    public Contact() {
+    public Trajet() {
     }
 
     // constructor
-    public Contact(int id, String name, String _phone_number, String _email) {
+    public Trajet(int id, String name, String _phone_number, String _email) {
 	this._id = id;
 	this._name = name;
 	this._phone_number = _phone_number;
@@ -21,7 +21,7 @@ public class Contact {
     }
 
     // constructor
-    public Contact(String name, String _phone_number, String _email) {
+    public Trajet(String name, String _phone_number, String _email) {
 	this._name = name;
 	this._phone_number = _phone_number;
 	this._email = _email;
